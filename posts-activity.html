@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posts &amp; Activity — Keith White</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:     #F9F7F3;
+      --text:   #1C1917;
+      --muted:  #847D77;
+      --accent: #7C5C3E;
+      --border: #E5E0D8;
+      --max:    840px;
+      --hdr:    56px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      padding-top: var(--hdr);
+      animation: arrive 0.5s ease both;
+    }
+
+    @keyframes arrive {
+      from { opacity: 0; transform: translateY(7px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) { body { animation: none; } }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--hdr);
+      background: rgba(249, 247, 243, 0.93);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .site-header .wrap {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .wordmark {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--accent); }
+
+    /* ── Page content ── */
+    .page-section {
+      padding: 64px 0 80px;
+    }
+
+    .section-label {
+      font-size: 0.64rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+      padding-left: 12px;
+      border-left: 2px solid var(--accent);
+    }
+
+    /* ── Widget zone ── */
+    .widget-zone {
+      min-height: 480px;
+      border: 1px dashed var(--border);
+      border-radius: 2px;
+      background: #fff;
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .widget-placeholder {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+
+    .widget-placeholder code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 1px 5px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+    }
+
+    footer .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    .footer-link {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer-link:hover { color: var(--accent); }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .wrap { padding: 0 20px; }
+      .nav-links { display: none; }
+      .page-section { padding: 44px 0 60px; }
+      .widget-zone { padding: 24px; }
+      footer .wrap { flex-direction: column; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="keith-white-v3.html" class="wordmark">Keith White</a>
+      <ul class="nav-links" role="list">
+        <li><a href="keith-white-v3.html#about">About</a></li>
+        <li><a href="keith-white-v3.html#beliefs">Beliefs</a></li>
+        <li><a href="posts-activity.html" class="active">Posts &amp; Activity</a></li>
+        <li><a href="keith-white-v3.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-section">
+      <div class="wrap">
+        <p class="section-label">Posts &amp; Activity</p>
+
+        <!-- Paste widget embed code directly inside #widget-container.
+             Delete the .widget-placeholder div when you do. -->
+        <div class="widget-zone" id="widget-container">
+          <div class="widget-placeholder">
+            Paste widget embed code inside <code>#widget-container</code> and delete this placeholder.
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Update LinkedIn URL before publishing -->
+  <footer>
+    <div class="wrap">
+      <p class="footer-copy">&copy; 2026 Keith White</p>
+      <a href="https://linkedin.com/in/keithwhite" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keith White</title>
+  <meta name="description" content="Keith White — finance, operations, and strategy.">
+  <script>
+    (function(){const t=localStorage.getItem('kw-theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #171310;
+      --surface: #1F1B17;
+      --text:    #EDE9E2;
+      --muted:   #7A6E66;
+      --accent:  #C69A5F;
+      --border:  #2E2822;
+      --hdr-bg:  rgba(23, 19, 16, 0.92);
+      --card-bg: #1F1B17;
+      --drop-bg: #221E1A;
+      --max:     720px;
+      --hdr:     56px;
+    }
+
+    [data-theme="light"] {
+      --bg:      #F9F7F3;
+      --surface: #FFFFFF;
+      --text:    #1C1917;
+      --muted:   #847D77;
+      --accent:  #7C5C3E;
+      --border:  #E5E0D8;
+      --hdr-bg:  rgba(249, 247, 243, 0.93);
+      --card-bg: #FFFFFF;
+      --drop-bg: #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      padding-top: var(--hdr);
+      position: relative;
+      animation: arrive 0.5s ease both;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    @keyframes arrive {
+      from { opacity: 0; transform: translateY(7px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) { body { animation: none; } }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      transition: opacity 0.25s ease;
+    }
+
+    [data-theme="light"] body::before { opacity: 0.018; }
+
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--hdr);
+      background: var(--hdr-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .site-header .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+
+    .wordmark {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); text-decoration: none;
+      transition: color 0.25s ease;
+    }
+
+    .nav-links { list-style: none; display: flex; gap: 24px; align-items: center; }
+
+    .nav-links a {
+      font-size: 0.78rem; font-weight: 300;
+      color: var(--muted); text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a::after { content: ' ▾'; font-size: 0.6em; opacity: 0.5; }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute; top: calc(100% + 14px); right: 0;
+      background: var(--drop-bg);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      min-width: 216px; padding: 4px 0;
+      z-index: 200;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+
+    .dropdown-menu::before { content: ''; position: absolute; top: -14px; left: 0; right: 0; height: 14px; }
+    .nav-dropdown:hover .dropdown-menu { display: block; }
+
+    .dropdown-menu a {
+      display: block; padding: 9px 16px;
+      font-size: 0.78rem; font-weight: 300;
+      color: var(--muted); text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.12s, background 0.12s;
+    }
+
+    .dropdown-menu a:hover { color: var(--text); background: rgba(128,100,60,0.06); }
+    .dropdown-divider { height: 1px; background: var(--border); margin: 4px 0; }
+
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      position: fixed; bottom: 24px; right: 24px;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 500;
+      color: var(--muted);
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── Hero ── */
+    .hero { padding: 72px 0 64px; }
+    .hero-grid { display: grid; grid-template-columns: 228px 1fr; gap: 48px; align-items: start; }
+
+    .photo-wrap {
+      width: 228px; height: 284px;
+      border-radius: 2px; overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: background 0.25s, border-color 0.25s;
+    }
+
+    .photo-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
+      filter: contrast(1.06) brightness(0.94);
+      transition: filter 0.25s;
+    }
+
+    [data-theme="light"] .photo-wrap img { filter: none; }
+
+    .hero-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 2.05rem; font-weight: 400;
+      line-height: 1.24; letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .hero h1 em {
+      font-style: italic; color: var(--muted);
+      font-size: 0.84em; display: block;
+      margin-top: 18px; line-height: 1.42;
+    }
+
+    /* ── Sections ── */
+    .section { padding: 80px 0; border-top: 1px solid var(--border); }
+
+    .section-label {
+      font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 40px;
+      padding-left: 12px; border-left: 2px solid var(--accent);
+    }
+
+    /* ── About ── */
+    .about-body p {
+      font-size: 0.975rem; font-weight: 300;
+      line-height: 1.82; color: var(--text); opacity: 0.82;
+    }
+
+    .about-body p + p { margin-top: 20px; }
+
+    /* ── Beliefs ── */
+    .beliefs-list { list-style: none; }
+
+    .beliefs-list li {
+      display: grid; grid-template-columns: 28px 1fr;
+      gap: 20px; padding: 22px 0;
+      border-top: 1px solid var(--border); align-items: baseline;
+    }
+
+    .beliefs-list li:last-child { border-bottom: 1px solid var(--border); }
+
+    .belief-num {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.58rem; font-weight: 400;
+      color: var(--accent); letter-spacing: 0.06em; padding-top: 3px;
+    }
+
+    .belief-text {
+      font-size: 0.975rem; font-weight: 300;
+      color: var(--text); line-height: 1.65; opacity: 0.82;
+    }
+
+    /* ── Field Notes ── */
+    .notes-placeholder {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic; font-size: 1rem;
+      color: var(--muted); opacity: 0.65;
+    }
+
+    /* ── Contact ── */
+    .contact-note { font-size: 0.85rem; font-weight: 300; color: var(--muted); margin-bottom: 24px; }
+
+    .email-link {
+      display: block;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 1.2rem; font-weight: 400; color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border); padding-bottom: 2px;
+      margin-bottom: 36px; width: fit-content;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .email-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 10px; }
+
+    .contact-form input,
+    .contact-form textarea {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.875rem; font-weight: 300;
+      color: var(--text); background: var(--surface);
+      border: 1px solid var(--border); border-radius: 2px;
+      padding: 10px 12px; width: 100%;
+      -webkit-appearance: none; appearance: none;
+      transition: border-color 0.15s, background 0.25s, color 0.25s;
+      line-height: 1.5;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: var(--muted); }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus { outline: none; border-color: var(--accent); }
+
+    .contact-form textarea { resize: vertical; min-height: 96px; }
+
+    .btn {
+      display: inline-block; font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem; font-weight: 400;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      border-radius: 2px; padding: 10px 20px; cursor: pointer;
+      border: 1px solid var(--accent); background: transparent;
+      color: var(--accent);
+      transition: background 0.15s, color 0.15s;
+      align-self: flex-start; line-height: 1;
+    }
+
+    .btn:hover { background: var(--accent); color: var(--bg); }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid var(--border); padding: 24px 0; }
+    footer .wrap { display: flex; align-items: center; justify-content: space-between; }
+
+    .footer-copy, .footer-link {
+      font-size: 0.75rem; font-weight: 300;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-link:hover { color: var(--accent); }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .wrap { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 44px 0; }
+      .hero-grid { grid-template-columns: 1fr; gap: 24px; }
+      .photo-wrap { width: 80px; height: 80px; }
+      .hero h1 { font-size: 1.6rem; }
+      .section { padding: 56px 0; }
+      .beliefs-list li { grid-template-columns: 24px 1fr; gap: 14px; }
+      footer .wrap { flex-direction: column; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="#top" class="wordmark">Keith White</a>
+      <ul class="nav-links" role="list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#beliefs">Beliefs</a></li>
+        <li><a href="#notes">Field Notes</a></li>
+        <li class="nav-dropdown">
+          <a href="software.html">Resources</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="software.html" role="menuitem">My Favorite Software</a>
+            <a href="skills-library.html" role="menuitem">AI Skills Library</a>
+            <div class="dropdown-divider"></div>
+            <a href="free-tools.html" role="menuitem">Free Tools</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="posts-activity.html">Labs</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="posts-activity.html" role="menuitem">Lab #1 &mdash; Live Personal Feed</a>
+            <div class="dropdown-divider"></div>
+            <a href="posts-activity-customer.html" role="menuitem">Lab #2 &mdash; Live Adaptable Feed</a>
+          </div>
+        </li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero" id="top">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div class="photo-wrap">
+            <img src="keith-white-photo.jpg" alt="Keith White">
+          </div>
+          <div>
+            <p class="hero-name">Keith White</p>
+            <h1>I build practical systems that turn business frustration into momentum so owners can focus on their craft instead of fighting their own operations.<br><em>I care deeply about the people I work with and about delivering results that earn real trust and real gratitude.</em></h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="wrap">
+        <p class="section-label">About</p>
+        <div class="about-body">
+          <p>I spent over a decade at KPMG working inside major companies in oil and gas, banking, insurance, pharmaceuticals, consumer goods, and fintech. My job was to understand how complex businesses actually run and help them reduce risk, improve margins, and prepare for public markets.</p>
+          <p>At Amazon, I run financial operations for inbound fulfillment across the East region &ndash; a mix of operations, strategic finance, and AI-driven process improvements.</p>
+          <p>I love taking what I&rsquo;ve learned in large, complex environments and translating it into ideas, frameworks, and tools that make real-world businesses run smoother, make more money, and spend less time fighting their own systems.</p>
+          <p>I&rsquo;m also using my page to test new software in development, in case you come across anything surprising, unusual, or that feels a bit&hellip;different&hellip;</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="beliefs">
+      <div class="wrap">
+        <p class="section-label">What I Believe</p>
+        <ul class="beliefs-list" role="list">
+          <li><span class="belief-num">01</span><span class="belief-text">Play the ball as it lies.</span></li>
+          <li><span class="belief-num">02</span><span class="belief-text">A good reputation takes years to build and minutes to destroy. Where I&rsquo;m from, we say &ldquo;One whoopsee daisy ruins ten at-a-boys.&rdquo;</span></li>
+          <li><span class="belief-num">03</span><span class="belief-text">Most problems yield to focused, honest hard work.</span></li>
+          <li><span class="belief-num">04</span><span class="belief-text">Serve people with compassion. Love your neighbor as yourself. Leave things better than you found them.</span></li>
+          <li><span class="belief-num">05</span><span class="belief-text">Consistency creates trust.</span></li>
+          <li><span class="belief-num">06</span><span class="belief-text">Businesses win when they solve real problems for real people.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="notes">
+      <div class="wrap">
+        <p class="section-label">Field Notes</p>
+        <p class="notes-placeholder">[On the range&hellip;]</p>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="wrap">
+        <p class="section-label">Contact</p>
+        <p class="contact-note">Please be as specific as possible.</p>
+        <a href="mailto:keith@keith-white.com" class="email-link">keith@keith-white.com</a>
+        <form class="contact-form" action="https://formspree.io/f/mpqvzaab" method="POST">
+          <input type="text" name="name" placeholder="Name" autocomplete="name" required>
+          <input type="email" name="email" placeholder="Email" autocomplete="email" required>
+          <textarea name="message" placeholder="Message" rows="4" required></textarea>
+          <button type="submit" class="btn">Send</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p class="footer-copy">&copy; 2026 Keith White</p>
+      <a href="https://www.linkedin.com/in/keith-white-62a69b26/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+    </div>
+  </footer>
+
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+
+  <script>
+    // Theme toggle
+    (function () {
+      var html = document.documentElement;
+      var btn  = document.getElementById('theme-toggle');
+      var SUN  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+      var MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+
+      function applyTheme(t) {
+        html.setAttribute('data-theme', t);
+        btn.innerHTML = t === 'dark' ? SUN : MOON;
+        btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+      }
+
+      applyTheme(html.getAttribute('data-theme') || 'dark');
+
+      btn.addEventListener('click', function () {
+        var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem('kw-theme', next);
+      });
+    })();
+
+  </script>
+
+</body>
+</html>

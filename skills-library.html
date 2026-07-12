@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Skills Library — Keith White</title>
+  <meta name="description" content="Free AI workflows and frameworks Keith White uses in business operations. Download and use them.">
+  <script>
+    (function(){const t=localStorage.getItem('kw-theme');if(t)document.documentElement.setAttribute('data-theme',t);})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #171310;
+      --surface: #1F1B17;
+      --text:    #EDE9E2;
+      --muted:   #7A6E66;
+      --accent:  #C69A5F;
+      --border:  #2E2822;
+      --hdr-bg:  rgba(23, 19, 16, 0.92);
+      --drop-bg: #221E1A;
+      --max:     720px;
+      --hdr:     56px;
+    }
+
+    [data-theme="light"] {
+      --bg:      #F9F7F3;
+      --surface: #FFFFFF;
+      --text:    #1C1917;
+      --muted:   #847D77;
+      --accent:  #7C5C3E;
+      --border:  #E5E0D8;
+      --hdr-bg:  rgba(249, 247, 243, 0.93);
+      --drop-bg: #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    body {
+      background-color: var(--bg); color: var(--text);
+      font-family: 'DM Sans', system-ui, sans-serif; font-weight: 300; line-height: 1.65;
+      padding-top: var(--hdr); position: relative;
+      animation: arrive 0.4s ease both;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    @keyframes arrive { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) { body { animation: none; } }
+
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.04; transition: opacity 0.25s;
+    }
+    [data-theme="light"] body::before { opacity: 0.018; }
+
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+    .site-header { position: fixed; top: 0; left: 0; right: 0; height: var(--hdr); background: var(--hdr-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 100; transition: background 0.25s, border-color 0.25s; }
+    .site-header .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+
+    .wordmark { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); text-decoration: none; transition: color 0.25s; }
+
+    .nav-links { list-style: none; display: flex; gap: 24px; align-items: center; }
+    .nav-links a { font-size: 0.78rem; font-weight: 300; color: var(--muted); text-decoration: none; letter-spacing: 0.02em; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a::after { content: ' ▾'; font-size: 0.6em; opacity: 0.5; }
+    .dropdown-menu { display: none; position: absolute; top: calc(100% + 14px); right: 0; background: var(--drop-bg); border: 1px solid var(--border); border-radius: 3px; min-width: 216px; padding: 4px 0; z-index: 200; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+    .dropdown-menu::before { content: ''; position: absolute; top: -14px; left: 0; right: 0; height: 14px; }
+    .nav-dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a { display: block; padding: 9px 16px; font-size: 0.78rem; font-weight: 300; color: var(--muted); white-space: nowrap; text-decoration: none; transition: color 0.12s, background 0.12s; }
+    .dropdown-menu a:hover { color: var(--text); background: rgba(128,100,60,0.06); }
+    .dropdown-divider { height: 1px; background: var(--border); margin: 4px 0; }
+
+    .page-hero { padding: 72px 0 52px; border-bottom: 1px solid var(--border); }
+    .section-label { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; padding-left: 12px; border-left: 2px solid var(--accent); }
+    .page-title { font-family: 'Instrument Serif', Georgia, serif; font-size: 2.2rem; font-weight: 400; color: var(--text); line-height: 1.18; letter-spacing: -0.02em; margin-bottom: 14px; }
+    .page-intro { font-size: 0.975rem; font-weight: 300; color: var(--text); opacity: 0.6; line-height: 1.7; max-width: 460px; }
+
+    .cards-section { padding: 56px 0 80px; }
+    .category-heading { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 40px; }
+
+    .card {
+      display: flex; flex-direction: column; gap: 10px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+      padding: 24px 24px 28px; text-decoration: none; color: inherit;
+      transition: border-color 0.15s, background 0.25s;
+    }
+    .card:hover { border-color: var(--accent); }
+
+    .card-icon { width: 24px; height: 24px; color: var(--accent); flex-shrink: 0; }
+    .card-icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .card-type { font-size: 0.58rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-top: 2px; opacity: 0.8; }
+
+    .card-title { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.25rem; font-weight: 400; color: var(--text); line-height: 1.22; }
+
+    .card-desc { font-size: 0.855rem; font-weight: 300; color: var(--text); opacity: 0.65; line-height: 1.66; }
+
+    .theme-toggle { position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 500; color: var(--muted); transition: background 0.2s, border-color 0.2s, color 0.2s; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    footer { border-top: 1px solid var(--border); padding: 24px 0; }
+    footer .wrap { display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy, .footer-link { font-size: 0.75rem; font-weight: 300; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .footer-link:hover { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      .wrap { padding: 0 20px; }
+      .nav-links { display: none; }
+      .page-title { font-size: 1.7rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .page-hero { padding: 48px 0 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="index.html" class="wordmark">Keith White</a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#beliefs">Beliefs</a></li>
+        <li><a href="index.html#notes">Field Notes</a></li>
+        <li class="nav-dropdown">
+          <a href="software.html">Resources</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="software.html" role="menuitem">My Favorite Software</a>
+            <a href="skills-library.html" role="menuitem">AI Skills Library</a>
+            <div class="dropdown-divider"></div>
+            <a href="free-tools.html" role="menuitem">Free Tools</a>
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="posts-activity.html">Labs</a>
+          <div class="dropdown-menu" role="menu">
+            <a href="posts-activity.html" role="menuitem">Lab #1 &mdash; Live Personal Feed</a>
+            <div class="dropdown-divider"></div>
+            <a href="posts-activity-customer.html" role="menuitem">Lab #2 &mdash; Live Adaptable Feed</a>
+          </div>
+        </li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="section-label">Resources</p>
+        <h1 class="page-title">AI Skills Library</h1>
+        <p class="page-intro">Frameworks and workflows I&rsquo;ve built for using AI in real business operations. Free to use.</p>
+      </div>
+    </section>
+
+    <section class="cards-section">
+      <div class="wrap">
+
+        <p class="category-heading">Frameworks</p>
+        <div class="card-grid">
+
+          <a href="#" class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+            <p class="card-type">Framework</p>
+            <h3 class="card-title">The Back-Office Audit</h3>
+            <p class="card-desc">A structured walkthrough to find where your business is leaking money, time, and energy. Works in an afternoon with a spreadsheet and Claude.</p>
+          </a>
+
+          <a href="#" class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+            <p class="card-type">Framework</p>
+            <h3 class="card-title">The AI Integration Playbook</h3>
+            <p class="card-desc">How I approach adding AI to existing operations without disrupting what&rsquo;s already working. Sequenced steps, real examples.</p>
+          </a>
+
+        </div>
+
+        <p class="category-heading">Templates &amp; Guides</p>
+        <div class="card-grid">
+
+          <a href="#" class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <p class="card-type">Guide</p>
+            <h3 class="card-title">The Weekly Ops Review</h3>
+            <p class="card-desc">A simple recurring structure to keep a small team aligned without all-hands meetings. Runs in 20 minutes when you follow the format.</p>
+          </a>
+
+          <a href="#" class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <p class="card-type">Guide</p>
+            <h3 class="card-title">Build Your First AI Process</h3>
+            <p class="card-desc">Start here if you&rsquo;ve never used AI inside your business operations. No technical background required. Takes one hour to complete.</p>
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p class="footer-copy">&copy; 2026 Keith White</p>
+      <a href="https://www.linkedin.com/in/keith-white-62a69b26/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+    </div>
+  </footer>
+
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+
+  <script>
+    (function () {
+      const html = document.documentElement;
+      const btn  = document.getElementById('theme-toggle');
+      const SUN  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+      const MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+      function applyTheme(t) { html.setAttribute('data-theme', t); btn.innerHTML = t === 'dark' ? SUN : MOON; btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'); }
+      applyTheme(html.getAttribute('data-theme') || 'dark');
+      btn.addEventListener('click', function () { const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; applyTheme(next); localStorage.setItem('kw-theme', next); });
+    })();
+  </script>
+
+</body>
+</html>
