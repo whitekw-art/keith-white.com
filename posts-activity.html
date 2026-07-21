@@ -103,6 +103,24 @@
     .nav-links a:hover,
     .nav-links a.active { color: var(--accent); }
 
+    .nav-toggle {
+      display: none;
+      width: 28px; height: 28px;
+      background: transparent; border: none; cursor: pointer;
+      flex-direction: column; justify-content: center; align-items: flex-end; gap: 5px;
+      padding: 0;
+    }
+
+    .nav-toggle span {
+      display: block; width: 20px; height: 1.5px;
+      background: var(--text);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
     /* ── Page content ── */
     .page-section {
       padding: 64px 0 80px;
@@ -178,7 +196,19 @@
     /* ── Responsive ── */
     @media (max-width: 700px) {
       .wrap { padding: 0 20px; }
-      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+
+      .nav-links {
+        display: none;
+        flex-direction: column; align-items: stretch; gap: 0;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(249, 247, 243, 0.98);
+        border-bottom: 1px solid var(--border);
+        padding: 4px 20px 16px;
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links a { display: block; padding: 12px 0; }
       .page-section { padding: 44px 0 60px; }
       .widget-zone { padding: 24px; }
       footer .wrap { flex-direction: column; gap: 10px; }
@@ -189,13 +219,16 @@
 
   <header class="site-header">
     <div class="wrap">
-      <a href="keith-white-v3.html" class="wordmark">Keith White</a>
-      <ul class="nav-links" role="list">
-        <li><a href="keith-white-v3.html#about">About</a></li>
-        <li><a href="keith-white-v3.html#beliefs">Beliefs</a></li>
+      <a href="index.html" class="wordmark">Keith White</a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#beliefs">Beliefs</a></li>
         <li><a href="posts-activity.html" class="active">Posts &amp; Activity</a></li>
-        <li><a href="keith-white-v3.html#contact">Contact</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
       </ul>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
@@ -221,6 +254,18 @@
       <a href="https://linkedin.com/in/keithwhite" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var toggle = document.getElementById('nav-toggle');
+      var nav = document.getElementById('nav-links');
+      if (!toggle || !nav) return;
+      toggle.addEventListener('click', function () {
+        var open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open);
+      });
+    })();
+  </script>
 
 </body>
 </html>

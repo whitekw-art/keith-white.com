@@ -77,6 +77,26 @@
     .dropdown-menu a:hover { color: var(--text); background: rgba(128,100,60,0.06); }
     .dropdown-divider { height: 1px; background: var(--border); margin: 4px 0; }
 
+    .dropdown-toggle { display: none; }
+
+    .nav-toggle {
+      display: none;
+      width: 28px; height: 28px;
+      background: transparent; border: none; cursor: pointer;
+      flex-direction: column; justify-content: center; align-items: flex-end; gap: 5px;
+      padding: 0;
+    }
+
+    .nav-toggle span {
+      display: block; width: 20px; height: 1.5px;
+      background: var(--text);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
     .page-hero { padding: 72px 0 52px; border-bottom: 1px solid var(--border); }
     .section-label { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; padding-left: 12px; border-left: 2px solid var(--accent); }
     .page-title { font-family: 'Instrument Serif', Georgia, serif; font-size: 2.2rem; font-weight: 400; color: var(--text); line-height: 1.18; letter-spacing: -0.02em; margin-bottom: 14px; }
@@ -115,7 +135,43 @@
 
     @media (max-width: 640px) {
       .wrap { padding: 0 20px; }
-      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+
+      .nav-links {
+        display: none;
+        position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; align-items: stretch; gap: 0;
+        background: var(--drop-bg); border-bottom: 1px solid var(--border);
+        padding: 4px 20px 16px;
+        max-height: calc(100vh - var(--hdr));
+        overflow-y: auto;
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-links > li > a { display: block; padding: 12px 0; }
+      .nav-dropdown { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+      .nav-dropdown > a { flex: 1; }
+      .nav-dropdown > a::after { content: none; }
+      .nav-dropdown:hover .dropdown-menu { display: none; }
+
+      .dropdown-toggle {
+        display: flex; align-items: center; justify-content: center;
+        width: 32px; height: 32px;
+        background: transparent; border: none; cursor: pointer;
+        color: var(--muted); font-size: 0.7rem;
+      }
+
+      .dropdown-toggle::after { content: '▾'; transition: transform 0.2s ease; }
+      .dropdown-toggle[aria-expanded="true"]::after { transform: rotate(180deg); }
+
+      .nav-dropdown .dropdown-menu {
+        display: none;
+        position: static; width: 100%;
+        box-shadow: none; border: none; background: transparent;
+        min-width: 0; padding: 0 0 8px 12px; margin: 0;
+      }
+
+      .nav-dropdown.open .dropdown-menu { display: block; }
       .page-title { font-size: 1.7rem; }
       .card-grid { grid-template-columns: 1fr; }
       .page-hero { padding: 48px 0 36px; }
@@ -127,12 +183,13 @@
   <header class="site-header">
     <div class="wrap">
       <a href="index.html" class="wordmark">Keith White</a>
-      <ul class="nav-links" role="list">
+      <ul class="nav-links" id="nav-links" role="list">
         <li><a href="index.html#about">About</a></li>
         <li><a href="index.html#beliefs">Beliefs</a></li>
         <li><a href="index.html#notes">Field Notes</a></li>
         <li class="nav-dropdown">
           <a href="software.html">Resources</a>
+          <button class="dropdown-toggle" type="button" aria-expanded="false" aria-label="Toggle Resources submenu"></button>
           <div class="dropdown-menu" role="menu">
             <a href="software.html" role="menuitem">My Favorite Software</a>
             <a href="skills-library.html" role="menuitem">AI Skills Library</a>
@@ -142,6 +199,7 @@
         </li>
         <li class="nav-dropdown">
           <a href="posts-activity.html">Labs</a>
+          <button class="dropdown-toggle" type="button" aria-expanded="false" aria-label="Toggle Labs submenu"></button>
           <div class="dropdown-menu" role="menu">
             <a href="posts-activity.html" role="menuitem">Lab #1 &mdash; Live Personal Widget</a>
             <div class="dropdown-divider"></div>
@@ -152,6 +210,9 @@
         </li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
@@ -229,6 +290,23 @@
       function applyTheme(t) { html.setAttribute('data-theme', t); btn.innerHTML = t === 'dark' ? SUN : MOON; btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'); }
       applyTheme(html.getAttribute('data-theme') || 'dark');
       btn.addEventListener('click', function () { const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; applyTheme(next); localStorage.setItem('kw-theme', next); });
+    })();
+
+    (function () {
+      var toggle = document.getElementById('nav-toggle');
+      var nav = document.getElementById('nav-links');
+      if (!toggle || !nav) return;
+      toggle.addEventListener('click', function () {
+        var open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open);
+      });
+      Array.prototype.forEach.call(nav.querySelectorAll('.dropdown-toggle'), function (btn2) {
+        btn2.addEventListener('click', function () {
+          var li = btn2.closest('.nav-dropdown');
+          var open = li.classList.toggle('open');
+          btn2.setAttribute('aria-expanded', open);
+        });
+      });
     })();
   </script>
 
