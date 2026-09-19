@@ -115,12 +115,14 @@
     }
     .card:hover { border-color: var(--accent); }
 
+    .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+
     .card-icon { width: 24px; height: 24px; color: var(--accent); flex-shrink: 0; }
     .card-icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
     .card-type { font-size: 0.58rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-top: 2px; opacity: 0.8; }
 
-    .card-title { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.25rem; font-weight: 400; color: var(--text); line-height: 1.22; }
+    .card-title { font-family: 'Instrument Serif', Georgia, serif; font-size: 1.25rem; font-weight: 400; color: var(--text); line-height: 1.22; flex: 1; min-width: 0; }
 
     .card-desc { font-size: 0.855rem; font-weight: 300; color: var(--text); opacity: 0.65; line-height: 1.66; }
 
@@ -233,16 +235,20 @@
         <div class="card-grid">
 
           <a href="https://github.com/petergyang/no-ai-slop" class="card" target="_blank" rel="noopener">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="M15 5l4 4"/></svg></div>
+            <div class="card-header">
+              <h3 class="card-title">No AI Slop</h3>
+              <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="M15 5l4 4"/></svg></div>
+            </div>
             <p class="card-type">Skill</p>
-            <h3 class="card-title">No AI Slop</h3>
             <p class="card-desc">Removes the garbage copy that AI generates. Strips 20+ patterns, including binary contrasts (&ldquo;It&rsquo;s not X. It&rsquo;s Y.&rdquo;), dramatic fragments (&ldquo;That&rsquo;s it. That&rsquo;s the whole thing.&rdquo;), profound endings (&ldquo;The future isn&rsquo;t coming. It&rsquo;s already here.&rdquo;), and more.</p>
           </a>
 
           <a href="#" class="card">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+            <div class="card-header">
+              <h3 class="card-title">The AI Integration Playbook</h3>
+              <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+            </div>
             <p class="card-type">Framework</p>
-            <h3 class="card-title">The AI Integration Playbook</h3>
             <p class="card-desc">How I approach adding AI to existing operations without disrupting what&rsquo;s already working. Sequenced steps, real examples.</p>
           </a>
 
@@ -252,16 +258,20 @@
         <div class="card-grid">
 
           <a href="#" class="card">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div class="card-header">
+              <h3 class="card-title">The Weekly Ops Review</h3>
+              <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            </div>
             <p class="card-type">Guide</p>
-            <h3 class="card-title">The Weekly Ops Review</h3>
             <p class="card-desc">A simple recurring structure to keep a small team aligned without all-hands meetings. Runs in 20 minutes when you follow the format.</p>
           </a>
 
           <a href="#" class="card">
-            <div class="card-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div class="card-header">
+              <h3 class="card-title">Build Your First AI Process</h3>
+              <div class="card-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            </div>
             <p class="card-type">Guide</p>
-            <h3 class="card-title">Build Your First AI Process</h3>
             <p class="card-desc">Start here if you&rsquo;ve never used AI inside your business operations. No technical background required. Takes one hour to complete.</p>
           </a>
 
